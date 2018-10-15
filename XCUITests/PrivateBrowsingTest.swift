@@ -90,6 +90,7 @@ class PrivateBrowsingTest: BaseTestCase {
         //  Open a Private tab
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         navigator.openURL(path(forTestPage: "test-mozilla-org.html"))
+        waitForTabsButton()
 
         // Go back to regular browser
         navigator.toggleOff(userState.isPrivate, withAction: Action.TogglePrivateMode)
@@ -106,6 +107,7 @@ class PrivateBrowsingTest: BaseTestCase {
         navigator.goto(SettingsScreen)
         closePrivateTabsSwitch.tap()
         navigator.goto(BrowserTab)
+        waitForTabsButton()
 
         // Go back to regular browsing and check that the private tab has been closed and that the initial Private Browsing message appears when going back to Private Browsing
         navigator.toggleOff(userState.isPrivate, withAction: Action.TogglePrivateMode)
@@ -124,7 +126,7 @@ class PrivateBrowsingTest: BaseTestCase {
         app.webViews.links.staticTexts["More information..."].press(forDuration: 3)
         app.buttons["Open in New Private Tab"].tap()
         waitUntilPageLoad()
-
+        waitForTabsButton()
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
 
         // Check there is one tab
@@ -148,6 +150,7 @@ class PrivateBrowsingTest: BaseTestCase {
 
         //Wait until the page loads and go to regular browser
         waitUntilPageLoad()
+        waitForTabsButton()
         navigator.toggleOff(userState.isPrivate, withAction: Action.TogglePrivateMode)
 
         // Go back to private browsing
@@ -188,6 +191,7 @@ class PrivateBrowsingTestIpad: IpadOnlyTestCase {
     // This test is only enabled for iPad. Shortcut does not exists on iPhone
     func testClosePrivateTabsOptionClosesPrivateTabsShortCutiPad() {
         if skipPlatform { return }
+        waitForTabsButton()
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         navigator.openURL(path(forTestPage: "test-mozilla-org.html"))
         enableClosePrivateBrowsingOptionWhenLeaving()
@@ -200,6 +204,7 @@ class PrivateBrowsingTestIpad: IpadOnlyTestCase {
 
     func testiPadDirectAccessPrivateMode() {
         if skipPlatform { return }
+        waitForTabsButton()
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateModeFromTabBarHomePanel)
 
         // A Tab opens directly in HomePanels view
@@ -221,6 +226,7 @@ class PrivateBrowsingTestIpad: IpadOnlyTestCase {
     func testiPadDirectAccessPrivateModeBrowserTab() {
         if skipPlatform { return }
         navigator.openURL("www.mozilla.org")
+        waitForTabsButton()
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateModeFromTabBarBrowserTab)
 
         // A Tab opens directly in HomePanels view

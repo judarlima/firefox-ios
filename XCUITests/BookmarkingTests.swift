@@ -48,18 +48,21 @@ class BookmarkingTests: BaseTestCase {
         // Go to a webpage, and add to bookmarks, check it's added
         navigator.openURL(path(forTestPage: url_1))
         navigator.nowAt(BrowserTab)
+        waitForTabsButton()
         bookmark()
         checkBookmarked()
 
         // Load a different page on a new tab, check it's not bookmarked
         navigator.openNewURL(urlString: path(forTestPage: url_2["url"]!))
         navigator.nowAt(BrowserTab)
+        waitForTabsButton()
         checkUnbookmarked()
 
         // Go back, check it's still bookmarked, check it's on bookmarks home panel
         navigator.goto(TabTray)
         app.collectionViews.cells["Example Domain"].tap()
         navigator.nowAt(BrowserTab)
+        waitForTabsButton()
         checkBookmarked()
 
         // Open it, then unbookmark it, and check it's no longer on bookmarks home panel

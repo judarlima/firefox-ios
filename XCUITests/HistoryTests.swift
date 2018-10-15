@@ -77,6 +77,7 @@ class HistoryTests: BaseTestCase {
         // Now go back to default website close it and check whether the option is enabled
         navigator.openURL(path(forTestPage: "test-mozilla-book.html"))
         waitUntilPageLoad()
+        waitForTabsButton()
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
         navigator.nowAt(NewTabScreen)
@@ -100,6 +101,7 @@ class HistoryTests: BaseTestCase {
         // Open the default website
         userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
+        waitForTabsButton()
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
         navigator.nowAt(NewTabScreen)
@@ -121,6 +123,7 @@ class HistoryTests: BaseTestCase {
         // Open the default website
         userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
+        waitForTabsButton()
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
         navigator.nowAt(NewTabScreen)
@@ -138,6 +141,7 @@ class HistoryTests: BaseTestCase {
         // Open the default website
         userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
+        waitForTabsButton()
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
         navigator.nowAt(NewTabScreen)
@@ -158,6 +162,7 @@ class HistoryTests: BaseTestCase {
         // Open the default website
         userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
+        waitForTabsButton()
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
         navigator.nowAt(NewTabScreen)
@@ -183,6 +188,7 @@ class HistoryTests: BaseTestCase {
         // It is necessary to open two sites so that when one is closed private mode is not closed
         navigator.openNewURL(urlString: path(forTestPage: "test-mozilla-org.html"))
         waitUntilPageLoad()
+        waitForTabsButton()
         navigator.goto(TabTray)
         waitforExistence(app.collectionViews.cells[webpage["label"]!])
         // 'x' button to close the tab is not visible, so closing by swiping the tab

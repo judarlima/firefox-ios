@@ -120,6 +120,14 @@ class BaseTestCase: XCTestCase {
 
         waitforNoExistence(progressIndicator, timeoutValue: 20.0)
     }
+
+    func waitForTabsButton() {
+        if iPad() {
+        waitforExistence(app.buttons["TopTabsViewController.tabsButton"])
+        } else {
+        waitforExistence(app.buttons["TabToolbar.tabsButton"])
+        }
+    }
 }
 
 class IpadOnlyTestCase: BaseTestCase {
