@@ -888,6 +888,12 @@ extension MMNavigator where T == FxUserState {
 
     // Opens a URL in a new tab.
     func openNewURL(urlString: String) {
+        let app = XCUIApplication()
+        if isTablet {
+            waitForExistence(app.buttons["TopTabsViewController.tabsButton"], timeout: 5)
+        } else {
+            waitForExistence(app.buttons["TabToolbar.tabsButton"], timeout: 5)
+        }
         self.goto(TabTray)
         createNewTab()
         self.openURL(urlString)
@@ -896,11 +902,6 @@ extension MMNavigator where T == FxUserState {
     // Add a new Tab from the New Tab option in Browser Tab Menu
     func createNewTab() {
         let app = XCUIApplication()
-        if isTablet {
-            waitForExistence(app.buttons["TopTabsViewController.tabsButton"], timeout: 5)
-        } else {
-            waitForExistence(app.buttons["TabToolbar.tabsButton"], timeout: 5)
-        }
         self.goto(TabTray)
         app.buttons["TabTrayController.addTabButton"].tap()
         self.nowAt(NewTabScreen)
@@ -931,11 +932,7 @@ extension MMNavigator where T == FxUserState {
             self.goto(PageOptionsMenu)
             app.tables["Context Menu"].cells[view.rawValue].tap()
         } else if BrowserMenuOptions.contains(view) {
-            if isTablet {
-                waitForExistence(app.buttons["TopTabsViewController.tabsButton"], timeout: 5)
-            } else {
-                waitForExistence(app.buttons["TabToolbar.tabsButton"], timeout: 5)
-            }
+            waitForExistence(app.buttons["TabToolbar.menuButton"], timeout: 5)
             self.goto(BrowserTabMenu)
             app.tables["Context Menu"].cells[view.rawValue].tap()
         }

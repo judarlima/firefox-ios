@@ -59,6 +59,7 @@ class BookmarkingTests: BaseTestCase {
         checkUnbookmarked()
 
         // Go back, check it's still bookmarked, check it's on bookmarks home panel
+        waitForTabsButton()
         navigator.goto(TabTray)
         app.collectionViews.cells["Example Domain"].tap()
         navigator.nowAt(BrowserTab)
