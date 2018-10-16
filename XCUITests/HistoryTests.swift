@@ -181,6 +181,7 @@ class HistoryTests: BaseTestCase {
     }
 
     func testPrivateClosedSiteDoesNotAppearOnRecentlyClosed() {
+        waitForTabsButton()
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         // Open the default website
         userState.url = path(forTestPage: "test-mozilla-book.html")

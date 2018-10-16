@@ -13,6 +13,7 @@ let url2Label = "Facebook - Log In or Sign Up"
 class PrivateBrowsingTest: BaseTestCase {
     func testPrivateTabDoesNotTrackHistory() {
         navigator.openURL(url1)
+        waitforExistence(app.buttons["TabToolbar.menuButton"], timeout: 5)
         navigator.goto(BrowserTabMenu)
         // Go to History screen
         waitforExistence(app.tables.cells["History"])
@@ -47,6 +48,7 @@ class PrivateBrowsingTest: BaseTestCase {
         // Open two tabs in normal browsing and check the number of tabs open
         navigator.openNewURL(urlString: path(forTestPage: "test-mozilla-org.html"))
         waitUntilPageLoad()
+        waitForTabsButton()
         navigator.goto(TabTray)
 
         waitforExistence(app.collectionViews.cells[url1Label])
@@ -60,6 +62,7 @@ class PrivateBrowsingTest: BaseTestCase {
         waitUntilPageLoad()
         navigator.openURL(url2)
         waitForValueContains(app.textFields["url"], value: "facebook")
+        waitForTabsButton()
         navigator.goto(TabTray)
         waitforExistence(app.collectionViews.cells[url2Label])
         let numPrivTabs = userState.numTabs
@@ -194,6 +197,7 @@ class PrivateBrowsingTestIpad: IpadOnlyTestCase {
         waitForTabsButton()
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         navigator.openURL(path(forTestPage: "test-mozilla-org.html"))
+        waitforExistence(app.buttons["TabToolbar.menuButton"], timeout: 5)
         enableClosePrivateBrowsingOptionWhenLeaving()
         // Leave PM by tapping on PM shourt cut
         navigator.toggleOff(userState.isPrivate, withAction: Action.TogglePrivateModeFromTabBarHomePanel)

@@ -41,7 +41,6 @@ class ToolbarTests: BaseTestCase {
         let valueMozilla = app.textFields["url"].value as! String
         XCTAssertEqual(valueMozilla, urlValueLong)
 
-
         XCTAssertTrue(app.buttons["URLBarView.backButton"].isEnabled)
         XCTAssertFalse(app.buttons["Forward"].isEnabled)
         XCTAssertTrue(app.buttons["Reload"].isEnabled)
@@ -72,6 +71,7 @@ class ToolbarTests: BaseTestCase {
         XCTAssertTrue(app.buttons["Forward"].isEnabled)
 
         navigator.nowAt(BrowserTab)
+        waitForTabsButton()
         navigator.goto(TabTray)
 
         waitforExistence(app.collectionViews.cells[website1["label"]!])
@@ -86,7 +86,7 @@ class ToolbarTests: BaseTestCase {
     func testClearURLTextUsingBackspace() {
         navigator.openURL(website1["url"]!)
         waitUntilPageLoad()
-        waitforExistence(app.webViews.links["Mozilla"], timeout: 5)
+        waitforExistence(app.webViews.links["Mozilla"], timeout: 10)
         waitForValueContains(app.textFields["url"], value: website1["value"]!)
 
         // Simulate pressing on backspace key should remove the text

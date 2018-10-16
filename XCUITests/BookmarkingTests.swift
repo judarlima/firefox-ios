@@ -88,7 +88,7 @@ class BookmarkingTests: BaseTestCase {
         navigator.openURL(path(forTestPage: url_2["url"]!))
         waitUntilPageLoad()
         navigator.nowAt(BrowserTab)
-        waitforExistence(app.buttons["TabLocationView.pageOptionsButton"])
+        waitforExistence(app.buttons["TabLocationView.pageOptionsButton"], timeout: 5)
         bookmark()
 
         //There should be a bookmark
@@ -108,6 +108,7 @@ class BookmarkingTests: BaseTestCase {
         navigator.nowAt(BrowserTab)
 
          //Clear text and enter new url
+        waitForTabsButton()
         navigator.performAction(Action.OpenNewTabFromTabTray)
         navigator.goto(URLBarOpen)
         typeOnSearchBar(text: "http://www.olx.ro")
@@ -119,7 +120,7 @@ class BookmarkingTests: BaseTestCase {
         navigator.nowAt(BrowserTab)
 
         // Add page to bookmarks
-        navigator.nowAt(BrowserTab)
+        waitForTabsButton()
         bookmark()
 
         // Now the site should be suggested
