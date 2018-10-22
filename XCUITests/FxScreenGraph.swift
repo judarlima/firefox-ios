@@ -551,7 +551,8 @@ func createScreenGraph(for test: XCTestCase, with app: XCUIApplication) -> MMScr
             app.tables.cells["ClearAllWebsiteData"].tap()
             app.alerts.buttons["OK"].tap()
         }
-            screenState.gesture(forAction: Action.TapOnFilterWebsites) { userState in
+        // The swipeDown() is a workaround for an intermitent issue that the search filed is not always in view.
+        screenState.gesture(forAction: Action.TapOnFilterWebsites) { userState in
             app.swipeDown()
             app.searchFields["Filter Sites"].tap()            
         }
@@ -683,7 +684,7 @@ func createScreenGraph(for test: XCTestCase, with app: XCUIApplication) -> MMScr
 
     map.addScreenState(ClearPrivateDataSettings) { screenState in
         let table = app.tables.element(boundBy: 0)
-        screenState.tap(app.staticTexts["Website Data"], to: WebsiteDataSettings)
+        screenState.tap(app.cells["WebsiteData"], to: WebsiteDataSettings)
         screenState.gesture(forAction: Action.AcceptClearPrivateData) { userState in
             app.tables.cells["ClearPrivateData"].tap()
             app.alerts.buttons["OK"].tap()
