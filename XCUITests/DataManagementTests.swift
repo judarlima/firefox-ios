@@ -9,13 +9,15 @@ class DataManagementTests: BaseTestCase {
     //Testing the entries are correctly added and deleted. This a termporary behaviour. This test will be changed after releasing Firefox 15.x and Bug 1499074 will be fixed.
     func testWebSiteDataEnterFirstTime() {
         navigator.goto(WebsiteDataSettings)
-        XCTAssertEqual(app.tables.cells.count, 2)
-        XCTAssertTrue(app.tables.staticTexts["Clear All Website Data"].exists)
+        let expectedWebsiteDataEntries = app.tables.cells.count
+        XCTAssertEqual(expectedWebsiteDataEntries, 2)
         navigator.performAction(Action.AcceptClearAllWebsiteData)
-        XCTAssertEqual(app.tables.cells.count, 1)
+        let expectedWebsiteDataEntries2 = app.tables.cells.count
+        XCTAssertEqual(expectedWebsiteDataEntries2, 1)
         navigator.createNewTab()
         navigator.goto(WebsiteDataSettings)
-        XCTAssertEqual(app.tables.cells.count, 2)
+        let expectedWebsiteDataEntries3 = app.tables.cells.count
+        XCTAssertEqual(expectedWebsiteDataEntries3, 2)
     }
     
     // Testing the search bar, search results and 'Show More' option.
@@ -28,16 +30,19 @@ class DataManagementTests: BaseTestCase {
         navigator.performAction(Action.TapOnFilterWebsites)
         app.typeText("google")
         waitforExistence(app.tables["Search results"])
-        XCTAssertEqual(app.tables["Search results"].cells.count, 2)
+        let expectedSearchResults = app.tables["Search results"].cells.count
+        XCTAssertEqual(expectedSearchResults, 1)
         navigator.performAction(Action.TapOnFilterWebsites)
-        app.searchFields["Filter Sites"].tap()
         app.typeText("foo")
-        XCTAssertEqual(app.tables["Search results"].cells.count, 0)
+        let expectedNoSearchResults = app.tables["Search results"].cells.count
+        XCTAssertEqual(expectedNoSearchResults, 0)
         app.buttons["Cancel"].tap()
-        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Show More"]/*[[".cells[\"ShowMoreWebsiteData\"].staticTexts[\"Show More\"]",".staticTexts[\"Show More\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        XCTAssertNotEqual(app.tables.cells.count, 9)
+        navigator.performAction(Action.ShowMoreWebsiteDataEntries)
+        let expectedShowMoreWebsites = app.tables.cells.count
+        XCTAssertNotEqual(expectedShowMoreWebsites, 9)
         navigator.performAction(Action.AcceptClearAllWebsiteData)
-        waitforExistence(app.tables.staticTexts["Clear All Website Data"])
-        XCTAssertEqual(app.tables.cells.count, 1)
+        waitforExistence(app.tables.cells["ClearAllWebsiteData"])
+        let expectedWebsitesCleared = app.tables.cells.count
+        XCTAssertEqual(expectedWebsitesCleared, 1)
     }
 }

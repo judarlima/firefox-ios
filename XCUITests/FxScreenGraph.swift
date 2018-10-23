@@ -156,6 +156,7 @@ class Action {
     static let AcceptClearPrivateData = "AcceptClearPrivateData"
     static let AcceptClearAllWebsiteData = "AcceptClearAllWebsiteData"
     static let TapOnFilterWebsites = "TapOnFilterWebsites"
+    static let ShowMoreWebsiteDataEntries = "ShowMoreWebsiteDataEntries"
 
     static let ToggleTrackingProtectionPerTabEnabled = "ToggleTrackingProtectionPerTabEnabled"
     static let ToggleTrackingProtectionSettingOnNormalMode = "ToggleTrackingProtectionSettingAlwaysOn"
@@ -554,7 +555,10 @@ func createScreenGraph(for test: XCTestCase, with app: XCUIApplication) -> MMScr
         // The swipeDown() is a workaround for an intermitent issue that the search filed is not always in view.
         screenState.gesture(forAction: Action.TapOnFilterWebsites) { userState in
             app.swipeDown()
-            app.searchFields["Filter Sites"].tap()            
+            app.searchFields["Filter Sites"].tap()
+        }
+        screenState.gesture(forAction: Action.ShowMoreWebsiteDataEntries) { userState in
+            app.tables.cells["ShowMoreWebsiteData"].tap()
         }
         screenState.backAction = navigationControllerBackAction
     }
