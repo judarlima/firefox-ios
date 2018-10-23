@@ -30,12 +30,14 @@ class DataManagementTests: BaseTestCase {
         waitforExistence(app.tables["Search results"])
         XCTAssertEqual(app.tables["Search results"].cells.count, 2)
         navigator.performAction(Action.TapOnFilterWebsites)
+        app.searchFields["Filter Sites"].tap()
         app.typeText("foo")
         XCTAssertEqual(app.tables["Search results"].cells.count, 0)
         app.buttons["Cancel"].tap()
         app.tables/*@START_MENU_TOKEN@*/.staticTexts["Show More"]/*[[".cells[\"ShowMoreWebsiteData\"].staticTexts[\"Show More\"]",".staticTexts[\"Show More\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         XCTAssertNotEqual(app.tables.cells.count, 9)
         navigator.performAction(Action.AcceptClearAllWebsiteData)
+        waitforExistence(app.tables.staticTexts["Clear All Website Data"])
         XCTAssertEqual(app.tables.cells.count, 1)
     }
 }
